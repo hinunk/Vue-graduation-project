@@ -1,10 +1,10 @@
 <template>
     <div id="topbar">
         <div>logo</div>
-        <buttons>
+        <div class="buttons">
             <button id="js-trigger-overlay" type="button">注册</button>
             <button id="js-trigger-overlay" type="button">登录</button>
-        </buttons>
+        </div>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    buttons {
+    .buttons {
         display: flex;
          :nth-child(2) {}
     }
