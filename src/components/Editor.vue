@@ -11,37 +11,28 @@
         </nav>
         <ol class="panes">
             <li v-bind:class="{active: currentTab === 0}">
-                个人信息
-                <div style="margin: 20px;"></div>
-                <el-form class="el-form el-form--label-top" :label-position="labelPosition" :model="formLabelAlign">
-                    <el-form-item label="姓名">
-                        <el-input v-model="formLabelAlign.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="所在地">
-                        <el-input v-model="formLabelAlign.location"></el-input>
-                    </el-form-item>
-                    <el-form-item label="出生年月">
-                        <el-input v-model="formLabelAlign.birth"></el-input>
-                    </el-form-item>
-                </el-form>
+                <Personal v-bind:formLabelAlign="formLabelAlign" />
             </li>
             <li v-bind:class="{active: currentTab === 1}">
-                工作经历
-                <el-form class="el-form el-form--label-top" :label-position="labelPosition" :model="formLabelAlign">
-                    <div v-for="(i, index) in workExperience">
-                        <i class="el-icon-circle-cross" @click="removeWorkExperience(index)"></i>
-                        <el-form-item label="公司名称">
-                            <el-input v-model="i.company"></el-input>
-                        </el-form-item>
-                        <el-form-item label="工作内容">
-                            <el-input v-model="i.jobContent"></el-input>
-                        </el-form-item>
-                    </div>
-                    <el-button @click="addWorkExperience()">添加</el-button>
-                </el-form>
+                <WorkExperience v-bind:workExperience="workExperience" />
             </li>
             <li v-bind:class="{active: currentTab === 2}">
-    
+                学校经历
+                <el-form class="el-form el-form--label-top">
+                    <div v-for="(i, index) in schoolExperience">
+                        <i class="el-icon-circle-cross" @click="removeSchoolExperience(index)"></i>
+                        <el-form-item label="学校">
+                            <el-input v-model="i.school"></el-input>
+                        </el-form-item>
+                        <el-form-item label="学位">
+                            <el-input v-model="i.degree"></el-input>
+                        </el-form-item>
+                        <el-form-item label="时间">
+                            <el-input v-model="i.time"></el-input>
+                        </el-form-item>
+                    </div>
+                </el-form>
+                <el-button @click="addSchoolExperience()">添加</el-button>
             </li>
             <li v-bind:class="{active: currentTab === 3}">
     
@@ -57,7 +48,13 @@
 </template>
 
 <script>
+import Personal from './Personal'
+import WorkExperience from './WorkExperience'
 export default {
+    components: {
+        Personal,
+        WorkExperience
+    },
     data() {
         return {
             currentTab: 0,
@@ -73,6 +70,13 @@ export default {
                     company: '',
                     jobContent: ''
                 }
+            ],
+            schoolExperience: [
+                {
+                    school: '',
+                    degree: '',
+                    time: ''
+                }
             ]
         }
     },
@@ -83,8 +87,19 @@ export default {
                 jobContent: ''
             })
         },
+        addSchoolExperience() {
+            this.schoolExperience.push({
+                school: '',
+                degree: '',
+                time: ''
+            })
+        },
         removeWorkExperience(index) {
             this.workExperience.splice(index, 1)
+
+        },
+        removeSchoolExperience(index) {
+            this.schoolExperience.splice(index, 1)
         }
     }
 }
