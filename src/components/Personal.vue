@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>{{title}}</h1>
         <el-form class="el-form el-form--label-top">
             <el-form-item label="姓名">
                 <el-input v-model="formLabelAlign.name"></el-input>
@@ -16,6 +17,6 @@
 
 <script>
 export default {
-    props: ['formLabelAlign']
+    props: ['formLabelAlign','title']
 }
 </script>
