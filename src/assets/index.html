@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slides</title>
+    <style>
+        .slides {
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .view {
+            height: 100%;
+            display: flex;
+            overflow: visible;
+        }
+
+        .slide {
+            float: left;
+            width: 100%;
+            box-sizing: border-box;
+            height: 100%;
+            border: 1px solid;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+        }
+
+        .p-slides-ol {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slides">
+        <div class="view">
+            <div class="slide">我是1图</div>
+            <div class="slide">我是2图</div>
+            <div class="slide">我是3图</div>
+        </div>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        window.slides = function (element) {
+            let $el = $(element)
+            let width = $el.width()
+            let count = $el.find('.slide').length
+            let $view = $el.children('.view')
+            let currentIndex = 0
+            let timer
+
+            let $ol = $('<ol class="p-slides-ol"></ol>')
+            for (let i = 0; i < count; i++) {
+                $ol.append(`<li class="">${i + 1}</li>`)
+            }
+            $el.append($ol)
+            $ol.on('click', 'li', (e) => {
+                let $li = $(e.currentTarget)
+                let index = $li.index()
+                goToSlide(index)
+            })
+            $view.on('mouseenter', () => {
+                clearInterval(timer)
+            })
+            $view.on('mouseleave', () => {
+                autoSlide()
+            })
+            function goToSlide(index) {
+                if (index < 0) {
+                    index = count - 1
+                } else if (index >= count) {
+                    index = 0
+                }else if(index === 0){
+                    
+                }
+                let slideWidth = - width * index
+                $view.css({
+                    transition: 'transform 1s',
+                    transform: `translateX(${slideWidth}px)`
+                })
+                currentIndex = index
+            }
+            function autoSlide() {
+                timer = setInterval(function () {
+                    goToSlide(currentIndex + 1)
+                }, 1500)
+            }
+            autoSlide()
+        }
+
+
+        slides(document.querySelector('.slides'))
+    </script>
+</body>
+
+</html>

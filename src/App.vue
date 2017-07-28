@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
-    <Topbar class="topbar" />
+  <div id="app" v-bind:class="{previewMode: previewMode}">
+    <Topbar class="topbar" v-on:preview="preview"/>
     <div class="main">
-      <Editor class="editor" />
-      <Preview class="preview" />
+      <Editor v-bind:resume="resume" class="editor" />
+      <Preview v-bind:resume="resume" class="preview" />
     </div>
+     <el-button id="exitPreview" v-on:click="exitPreview">退出预览</el-button>
   </div>
 </template>
 
@@ -13,11 +14,61 @@ import Editor from './components/Editor'
 import Preview from './components/Preview'
 import Topbar from './components/Topbar'
 export default {
+  data() {
+    return {
+      previewMode: false,
+      resume: {
+        formLabelAlign: {
+          name: '',
+          location: '',
+          birth: ''
+        },
+        workExperience: [
+          {
+            company: '',
+            jobContent: ''
+          }
+        ],
+        schoolExperience: [
+          {
+            school: '',
+            degree: '',
+            time: ''
+          }
+        ],
+        projects: [
+          {
+            name: '',
+            content: ''
+          }
+        ],
+        awards: [
+          {
+            name: ''
+          }
+        ],
+        contacts: {
+          qq: '',
+          wechat: '',
+          phone: '',
+          email: ''
+        }
+      }
+    }
+  },
+  methods:{
+      exitPreview(){
+        this.previewMode = false
+      },
+      preview(){
+        this.previewMode = true
+      }
+  },
   components: {
     Editor,
     Preview,
     Topbar
-  }
+  },
 }
 </script>
 
@@ -74,5 +125,24 @@ body,
     -moz-box-shadow: 0 10px 6px -6px #777;
     box-shadow: 0 10px 6px -6px #777;
   }
+}
+.previewMode > #topbar{
+  display: none;
+}
+.previewMode #editor{
+  display: none;
+}
+.previewMode #preview{
+  max-width: 800px;
+  margin: 32px auto;
+}
+#exitPreview{
+  display: none;
+}
+.previewMode #exitPreview{
+  display: inline-block;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
 }
 </style>

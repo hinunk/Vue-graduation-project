@@ -11,34 +11,34 @@
         </nav>
         <ol class="panes">
             <li v-bind:class="{active: currentTab === 0}">
-                <Personal v-bind:formLabelAlign="formLabelAlign" title="个人信息" />
+                <Personal v-bind:formLabelAlign="resume.formLabelAlign" title="个人信息" />
             </li>
             <li v-bind:class="{active: currentTab === 1}">
-                <ArrayEditor v-bind:items="workExperience" v-bind:labels="{company: '公司',jobContent: '工作内容'}" title="工作经历" />
+                <ArrayEditor v-bind:items="resume.workExperience" v-bind:labels="{company: '公司',jobContent: '工作内容'}" title="工作经历" />
             </li>
             <li v-bind:class="{active: currentTab === 2}">
-                <ArrayEditor v-bind:items="schoolExperience" v-bind:labels="{school: '学校', time: '时间', degree: '学位'}" title="学习经历" />
+                <ArrayEditor v-bind:items="resume.schoolExperience" v-bind:labels="{school: '学校', time: '时间', degree: '学位'}" title="学习经历" />
             </li>
             <li v-bind:class="{active: currentTab === 3}">
-                <ArrayEditor v-bind:items="projects" title="项目经历" v-bind:labels="{name:'项目名称', content:'工作内容'}" />
+                <ArrayEditor v-bind:items="resume.projects" title="项目经历" v-bind:labels="{name:'项目名称', content:'工作内容'}" />
             </li>
             <li v-bind:class="{active: currentTab === 4}">
-                <ArrayEditor v-bind:items="awards" title="获奖情况" v-bind:labels="{name:'奖励详情'}" />
+                <ArrayEditor v-bind:items="resume.awards" title="获奖情况" v-bind:labels="{name:'奖励详情'}" />
             </li>
             <li v-bind:class="{active: currentTab === 5}">
                 <h2>联系方式</h2>
                 <el-form>
                     <el-form-item label="QQ">
-                        <el-input v-model="contacts.qq"></el-input>
+                        <el-input v-model="resume.contacts.qq"></el-input>
                     </el-form-item>
                     <el-form-item label="微信">
-                        <el-input v-model="contacts.wechat"></el-input>
+                        <el-input v-model="resume.contacts.wechat"></el-input>
                     </el-form-item>
                     <el-form-item label="邮箱">
-                        <el-input v-model="contacts.email"></el-input>
+                        <el-input v-model="resume.contacts.email"></el-input>
                     </el-form-item>
                     <el-form-item label="手机">
-                        <el-input v-model="contacts.phone"></el-input>
+                        <el-input v-model="resume.contacts.phone"></el-input>
                     </el-form-item>
                 </el-form>
             </li>
@@ -54,43 +54,15 @@ export default {
         Personal,
         ArrayEditor
     },
+    props: ['resume'],
     data() {
         return {
             currentTab: 0,
             icons: ['identity', 'work', 'book', 'project', 'trophy', '3-copy'],
             labelPosition: 'right',
-            formLabelAlign: {
-                name: '',
-                location: '',
-                birth: ''
-            },
-            workExperience: [
-                {
-                    company: '',
-                    jobContent: ''
-                }
-            ],
-            schoolExperience: [{
-                school: '', degree: '', time: ''
-            }
-            ],
-            projects: [{ name: '', content: '' }],
-            awards: [{ name: '' }],
-            contacts: { qq: '', wechat: '', phone: '', email: '' }
+
         }
     },
-    methods: {
-        addSchoolExperience() {
-            this.schoolExperience.push({
-                school: '',
-                degree: '',
-                time: ''
-            })
-        },
-        removeSchoolExperience(index) {
-            this.schoolExperience.splice(index, 1)
-        }
-    }
 }
 </script>
 
